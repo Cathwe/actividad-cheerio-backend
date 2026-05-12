@@ -29,6 +29,31 @@ const obtenerProductos = async () => {
     return productos;
 };
 
+const obtenerStats = async () => {
+
+    const productos = await obtenerProductos();
+
+    const precios = productos.map(p => Number(p.precio));
+
+    const total = productos.length;
+
+    const minimo = Math.min(...precios);
+
+    const maximo = Math.max(...precios);
+
+    const promedio =
+        precios.reduce((acc, precio) => acc + precio, 0) / total;
+
+    return {
+        total_productos: total,
+        precio_minimo: minimo,
+        precio_maximo: maximo,
+        precio_promedio: Number(promedio.toFixed(2))
+    };
+
+};
+
 module.exports = {
-    obtenerProductos
+    obtenerProductos,
+    obtenerStats
 };

@@ -30,6 +30,29 @@ const scrapeProductos = async (req, res) => {
 
 };
 
+const verStats = async (req, res) => {
+
+    try {
+
+        const stats = await scrapeService.obtenerStats();
+
+        res.status(200).json({
+            ok: true,
+            stats
+        });
+
+    } catch (error) {
+
+        res.status(500).json({
+            ok: false,
+            error: error.message
+        });
+
+    }
+
+};
+
 module.exports = {
-    scrapeProductos
+    scrapeProductos,
+    verStats
 };
