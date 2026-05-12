@@ -52,7 +52,42 @@ const verStats = async (req, res) => {
 
 };
 
+const buscarProductos = async (req, res) => {
+
+    try {
+
+        const categoria = req.query.categoria;
+
+        if (!categoria) {
+            return res.status(400).json({
+                ok: false,
+                error: 'Debes indicar una categoria'
+            });
+        }
+
+        const productos =
+            await scrapeService.buscarPorCategoria(categoria);
+
+        res.status(200).json({
+            ok: true,
+            categoria,
+            total: productos.length,
+            productos
+        });
+
+    } catch (error) {
+
+        res.status(500).json({
+            ok: false,
+            error: error.message
+        });
+
+    }
+
+};
+
 module.exports = {
     scrapeProductos,
-    verStats
+    verStats,
+    buscarProductos
 };

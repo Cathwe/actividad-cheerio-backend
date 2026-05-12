@@ -56,7 +56,18 @@ const obtenerStats = async () => {
 
 };
 
+const buscarPorCategoria = async (categoria) => {
+
+    const productos = await obtenerProductos();
+
+    return productos.filter(
+        p => p.categoria.toLowerCase() === categoria.toLowerCase()
+    );
+
+};
+
 module.exports = {
     obtenerProductos,
-    obtenerStats
+    obtenerStats,
+    buscarPorCategoria
 };
